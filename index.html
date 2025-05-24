@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mood Mosaic</title>
+    <style>
+        body { text-align: center; font-family: Arial; }
+        .emoji { font-size: 40px; margin: 10px; cursor: pointer; }
+        #mosaic { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>How are you today?</h1>
+    <div>
+        <span class="emoji" onclick="logMood('😊')">😊</span>
+        <span class="emoji" onclick="logMood('😐')">😐</span>
+        <span class="emoji" onclick="logMood='😞')">😞</span>
+    </div>
+    <div id="mosaic"></div>
+    <script>
+        function logMood(emoji) {
+            const date = new Date().toLocaleDateString();
+            localStorage.setItem(date, emoji); // Save to phone storage
+            updateMosaic();
+        }
+        function updateMosaic() {
+            let html = '';
+            for (let i = 0; i < localStorage.length; i++) {
+                const date = localStorage.key(i);
+                html += localStorage.getItem(date);
+            }
+            document.getElementById('mosaic').innerHTML = html;
+        }
+        updateMosaic(); // Load saved moods
+    </script>
+</body>
+</html>
