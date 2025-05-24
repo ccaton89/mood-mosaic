@@ -1,0 +1,53 @@
+<!DOCTYPE html> <!-- "This is an HTML document" declaration -->
+<html> <!-- Root container -->
+<head> <!-- Invisible settings section -->
+    <title>Mood Mosaic</title> <!-- App name on browser tab -->
+    <style> /* CSS (makeup for your app) */
+        body { 
+            text-align: center; /* Center everything */
+            font-family: Arial; /* Font style */
+        }
+        .emoji { 
+            font-size: 40px; /* Emoji size */
+            margin: 10px; /* Space between emojis */
+            cursor: pointer; /* Show hand cursor on hover */
+        }
+        #mosaic { 
+            margin-top: 20px; /* Space below emojis */
+        }
+    </style>
+</head>
+<body> <!-- Visible part of app -->
+    <h1>How are you today?</h1> <!-- Heading -->
+    
+    <!-- Emoji Buttons -->
+    <div>
+        <span class="emoji" onclick="logMood('😊')">😊</span>
+        <span class="emoji" onclick="logMood('😐')">😐</span>
+        <span class="emoji" onclick="logMood('😞')">😞</span>
+    </div>
+
+    <!-- Mood History Display -->
+    <div id="mosaic"></div>
+    
+<script> /* Brain of your app */
+// Save mood to phone storage
+function logMood(emoji) {
+    const date = new Date().toLocaleDateString(); // Get today's date
+    localStorage.setItem(date, emoji); // Save like a diary entry
+    updateMosaic(); // Refresh display
+}
+
+// Show all saved moods
+function updateMosaic() {
+    let html = ''; // Empty container
+    // Loop through saved dates
+    for (let i = 0; i < localStorage.length; i++) {
+        const date = localStorage.key(i); // Get date
+        html += localStorage.getItem(date); // Add emoji
+    }
+    document.getElementById('mosaic').innerHTML = html; // Display
+}
+
+updateMosaic(); // Load saved moods on startup
+</script>
